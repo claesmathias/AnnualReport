@@ -1,52 +1,33 @@
 __author__ = 'claesma1'
 
 
-class CurrentAssets( ):
+class Assets():
     def __init__(self):
-        self.Cash = ""
-        self.AccountsReceivable = ""
-        self.PrepaidExpenses = ""
-        self.ForeignSalesTaxReceivable = ""
-        self.DeferredIncomeTaxes = ""
-        self.Other = ""
-        self.AssetsDiscontinuedOperations = ""
-        self.Total = ""
+        self.CurrentAssets = \
+            {'Cash': 0, 'AccountsReceivable': 0, 'PrepaidExpenses': 0,
+             'ForeignSalesTaxReceivable': 0, 'DeferredIncomeTaxes': 0,
+             'Other': 0, 'AssetsDiscontinuedOperations': 0, 'Total': 0}
 
-class Assets( ):
-    def __init__(self):
-        self.CurrentAssets = CurrentAssets()
-
-class Liabilities( ):
+class Liabilities():
     def __init__(self):
         self.CurrentLiabilities = ""
 
-class Balance( ):
+class Balance():
     def __init__(self):
         self.Assets = Assets()
         self.Liabilities = Liabilities()
 
-class OperatingCosts( ):
-    def __init__(self):
-        self.Sales = ""
-        self.RD = ""
-        self.General = ""
-        self.Amortization = ""
-        self.Total = ""
-
-class Operations( ):
+class Operations():
     def __init__(self):
         self.Revenue = ""
         self.CostGoodsSold = ""
-        self.OperatingCosts = OperatingCosts()
+        self.NetIncome = ""
+        self.OperatingCosts = \
+            {'Sales': 0, 'RD': 0, 'General': 0, 'Amortization': 0, 'Total': 0}
 
-class Info( ):
+class AnnualReport():
     def __init__(self):
-        self.Year = ""
-        self.Employees = ""
-
-class AnnualReport( ):
-    def __init__(self):
-        self.Info = Info()
+        self.Info = {'Year': 0, 'Employees': 0, }
         self.Balance = Balance()
         self.Operations = Operations()
 
