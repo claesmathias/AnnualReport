@@ -12,6 +12,8 @@ import operator
 class PieChart():
 
     class Settings():
+        # plot details
+        title = 'Operating Expenses'
         colors = \
             {'Sales': 'lightcoral', 'RD': 'lightskyblue', 'General': 'orange',
              'Amortization': 'gold'}
@@ -79,6 +81,6 @@ class PieChart():
         for pie_wedge in pie_wedge_collection[0]:
             pie_wedge.set_edgecolor('white')
 
-        plt.title('Operating Expenses')
+        plt.title(self.Settings.title)
 
-        plt.savefig('Operating Expenses.png')
+        plt.savefig(self.Settings.title + '.png')
