@@ -8,7 +8,7 @@ from collections import OrderedDict
 from Utilities import Utilities
 
 
-class BarChart():
+class OperationsBarChart():
 
     class Settings:
         # plot details
@@ -18,7 +18,7 @@ class BarChart():
         line_width = 1
         opacity = 0.7
         colors = \
-            {'Gross Profit': 'green', 'COGS': 'white',
+            {'Gross Profit': 'green', 'COGS': 'white', 'Revenue': 'green',
              'Gross Profit Margin': 'r', 'Profit Margin': 'b', 'Operating Profit Margin': 'g',
              'Sales': 'lightcoral', 'RD': 'lightskyblue', 'General': 'orange',
              'Amortization': 'gold'}
@@ -104,22 +104,23 @@ class BarChart():
         gross_profit = self.var.revenue - self.var.cost_goods
 
         ax.bar(
-            x + offset,                                     # value
-            gross_profit,                                   # np.array  ? revenue
-            width,                                          # bar width
-            color=self.Settings.colors['Gross Profit'],     # color
-            label="Gross Profit")                           # label
+            x + offset,                                         # value
+            gross_profit,                                       # np.array
+            width,                                              # bar width
+            color=self.Settings.colors['Gross Profit'],         # color
+            edgecolor=self.Settings.colors['Revenue'],          # edge color
+            label="Gross Profit")                               # label
 
         ax.bar(
-               x + offset,                                  # value
-               self.var.cost_goods,                         # np.array
-               width,                                       # bar width
-               bottom=gross_profit,                         # bottom
-               color=self.Settings.colors['COGS'],          # color
-               edgecolor='green',                           # edge color
-               linewidth=self.Settings.line_width,          # line width
-               hatch='//',                                  # hatch
-               label="COGS")                                # label
+               x + offset,                                      # value
+               self.var.cost_goods,                             # np.array
+               width,                                           # bar width
+               bottom=gross_profit,                             # bottom
+               color=self.Settings.colors['COGS'],              # color
+               edgecolor=self.Settings.colors['Revenue'],       # edge color
+               linewidth=self.Settings.line_width,              # line width
+               hatch='//',                                      # hatch
+               label="COGS")                                    # label
 
         # reset bottom
         total_bottom = 0
@@ -139,6 +140,7 @@ class BarChart():
                 width,                                      # bar width
                 total_bottom,                               # bottom value
                 color=self.Settings.colors[key],            # color
+                edgecolor=self.Settings.colors[key],        # edge color
                 label=key)                                  # label
 
             # add item to the bottom count
@@ -169,15 +171,16 @@ class BarChart():
         for key in labels_values.keys():
 
             ax2.plot(
-                x+offset,                             # x value
-                labels_values[key],                   # y value
-                self.Settings.colors[key],            # color
-                label=key)                            # label
+                x+offset,                                       # x value
+                labels_values[key],                             # y value
+                self.Settings.colors[key],                      # color
+                label=key)                                      # label
 
             ax2.plot(
-                x+offset,                             # x value
-                labels_values[key],                   # y value
-                self.Settings.colors[key] + 'o')      # color
+                x+offset,                                       # x value
+                labels_values[key],                             # y value
+                self.Settings.colors[key] + 'o',                # color
+                markeredgecolor=self.Settings.colors[key])      # marker edge color
 
 
         y2_min = 0.0                    # 0%
@@ -200,7 +203,7 @@ class BarChart():
         # default labels by 100, making them all percentages
         format_to_percent = FuncFormatter(self.to_percent)
 
-        # Set format for y1 en y2
+        # Set format for y1 and y2
         ax2.yaxis.set_major_formatter(format_to_percent)
         ax.yaxis.set_major_formatter(format_to_millions)
 
@@ -208,8 +211,8 @@ class BarChart():
         plt.xticks(x + offset, self.var.t)
 
         # Set legend position
-        ax.legend(loc='upper left', prop={'size':10})
-        ax2.legend(loc='upper right', prop={'size':10})
+        ax.legend(loc='upper left', prop={'size': 10})
+        ax2.legend(loc='upper right', prop={'size': 10})
 
         # Set title
         plt.title(self.Settings.title)
