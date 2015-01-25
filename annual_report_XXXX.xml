@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<Collection title="Annual Reports">
+<Report title="Annual Report">
+	<Info>
+		<Company></Company>
+		<Year></Year>
+		<Employees></Employees>
+		<WorkingCapital></WorkingCapital>
+	</Info>
+	<Balance title="Consolidated Balance Sheets">
+		<Assets>
+			<CurrentAssets>
+				<Cash></Cash>
+				<AccountsReceivable></AccountsReceivable>
+				<PrepaidExpenses></PrepaidExpenses>
+				<ForeignSalesTaxReceivable></ForeignSalesTaxReceivable>
+				<DeferredIncomeTaxes></DeferredIncomeTaxes>
+				<Other></Other>
+				<AssetsDiscontinuedOperations></AssetsDiscontinuedOperations>
+				<Total></Total>
+			</CurrentAssets>
+			<Property></Property>
+			<Goodwill></Goodwill>
+			<IntangibleAssets></IntangibleAssets>
+			<Other></Other>
+			<Total></Total>
+		</Assets>
+		<Liabilities>
+			<CurrentLiabilities>
+				<AccountsPayable></AccountsPayable>
+				<DeferredRevenue></DeferredRevenue>
+				<IncomeTaxesPayable></IncomeTaxesPayable>
+				<OtherAccruedExpenses></OtherAccruedExpenses>
+				<DeferredCompensation></DeferredCompensation>
+				<LiabilitiesDiscontinuedOperations></LiabilitiesDiscontinuedOperations>
+				<Total></Total>
+			</CurrentLiabilities>
+			<StockholderEquity></StockholderEquity>
+		</Liabilities>
+	</Balance>
+	<Operations title="Consolidated Statements of Operations Data">
+		<Revenue></Revenue>
+		<CostGoodsSold></CostGoodsSold>
+		<GrossProfit></GrossProfit>
+		<OperatingCosts>
+			<Sales></Sales>
+			<RD></RD>
+			<General></General>
+			<Amortization></Amortization>
+			<Total></Total>
+		</OperatingCosts>
+		<OperatingIncome>
+			<OperatingIncome></OperatingIncome>
+			<IntrestIncome></IntrestIncome>
+			<OtherIncome></OtherIncome>
+			<Total></Total>
+		</OperatingIncome>
+		<NetIncome></NetIncome>
+	</Operations>
+</Report>
+</Collection>
