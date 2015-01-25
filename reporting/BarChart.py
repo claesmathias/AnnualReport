@@ -19,7 +19,7 @@ class BarChart():
         opacity = 0.7
         colors = \
             {'Gross Profit': 'green', 'COGS': 'white',
-             'Gross Profit Margin': 'r', 'Profit Margin': 'b',
+             'Gross Profit Margin': 'r', 'Profit Margin': 'b', 'Operating Profit Margin': 'g',
              'Sales': 'lightcoral', 'RD': 'lightskyblue', 'General': 'orange',
              'Amortization': 'gold'}
 
@@ -32,8 +32,8 @@ class BarChart():
             self.rd = []
             self.general = []
             self.amortization = []
-            self.total = []
             self.net_income = []
+            self.total_operating_cost = []
             self.operating_cost = \
                 {'Sales': self.sales, 'RD': self.rd, 'General': self.general,
                  'Amortization': self.amortization}
@@ -77,6 +77,9 @@ class BarChart():
             self.var.net_income = np.append(
                 self.var.net_income,
                 int(item.Operations.NetIncome))
+            self.var.total_operating_cost = np.append(
+                self.var.total_operating_cost,
+                int(item.Operations.OperatingCosts['Total']))
 
             # Add operating cost
             Utilities.set_dictionary(self.var.operating_cost, item.Operations.OperatingCosts)
@@ -156,28 +159,26 @@ class BarChart():
         offset = 3 * width
         gross_profit_margin = gross_profit / self.var.revenue
         profit_margin = self.var.net_income / self.var.revenue
+        operating_profit_margin = \
+            (gross_profit - self.var.total_operating_cost) / self.var.revenue
 
-        ax2.plot(
-            x+offset,                                           # x value
-            gross_profit_margin,                                # y value
-            self.Settings.colors['Gross Profit Margin'],        # color
-            label="Gross Profit Margin")                        # label
+        labels_values = {'Gross Profit Margin': gross_profit_margin,
+                         'Operating Profit Margin': operating_profit_margin,
+                         'Profit Margin': profit_margin}
 
-        ax2.plot(
-            x+offset,                                           # x value
-            gross_profit_margin,                                # y value
-            self.Settings.colors['Gross Profit Margin'] + 'o')  # color
+        for key in labels_values.keys():
 
-        ax2.plot(
-            x+offset,                                           # x value
-            profit_margin,                                      # y value
-            self.Settings.colors['Profit Margin'],              # color
-            label="Profit Margin")                              # label
+            ax2.plot(
+                x+offset,                             # x value
+                labels_values[key],                   # y value
+                self.Settings.colors[key],            # color
+                label=key)                            # label
 
-        ax2.plot(
-            x+offset,                                           # x value
-            profit_margin,                                      # y value
-            self.Settings.colors['Profit Margin'] + 'o')        # color
+            ax2.plot(
+                x+offset,                             # x value
+                labels_values[key],                   # y value
+                self.Settings.colors[key] + 'o')      # color
+
 
         y2_min = 0.0                    # 0%
         y2_max = 1.0                    # 100%
