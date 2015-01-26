@@ -1,4 +1,4 @@
-__author__ = 'claesma1'
+__author__ = 'claesmathias'
 
 
 class Assets():
