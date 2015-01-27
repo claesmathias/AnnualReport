@@ -151,8 +151,10 @@ class OperationsBarChart():
         y1_max = math.ceil(1.15*max(self.var.revenue)/hunderd_million) * hunderd_million;
         y1_ticks = 10     # number of ticks
 
+        # Set y1 limits and ticks
+        step = (y1_max-y1_min)/y1_ticks
         ax.set_ylim([y1_min, y1_max])
-        ax.yaxis.set_ticks(np.arange(y1_min, y1_max, y1_max/y1_ticks))
+        ax.yaxis.set_ticks(np.arange(y1_min, y1_max+step, step))
 
         #
         # Sub plot 2: Make scatter plot
@@ -183,17 +185,19 @@ class OperationsBarChart():
                 markeredgecolor=self.Settings.colors[key])      # marker edge color
 
 
-        y2_min = 0.0                    # 0%
-        y2_max = 1.0                    # 100%
-        y2_ticks_major = y1_ticks       # 10 ticks, same as y1
-        y2_ticks_minor = y1_ticks * 2   # 20 ticks
+        y2_min = 0.0                            # 0%
+        y2_max = 1.0                            # 100%
+        y2_ticks_major = y1_ticks               # 10 ticks, same as y1
+        y2_ticks_minor = y2_ticks_major * 2     # 20 ticks
 
         # ax2.set_ylabel('%')
 
         # Set y2 limits and ticks
+        step_major = (y2_max-y2_min)/y2_ticks_major
+        step_minor = (y2_max-y2_min)/y2_ticks_minor
         ax2.set_ylim([y2_min, y2_max])
-        ax2.yaxis.set_ticks(np.arange(y2_min, y2_max, y2_max/y2_ticks_major))
-        ax2.set_yticks(np.arange(y2_min, y2_max, y2_max/y2_ticks_minor), minor = True)
+        ax2.yaxis.set_ticks(np.arange(y2_min, y2_max+step_major, step_major))
+        ax2.set_yticks(np.arange(y2_min, y2_max+step_minor, step_minor), minor=True)
 
         # Set grids
         ax2.yaxis.grid(True, which='major')
