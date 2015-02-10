@@ -12,6 +12,7 @@
 			<CurrentAssets>
 				<Cash></Cash>
 				<AccountsReceivable></AccountsReceivable>
+				<Inventories></Inventories>
 				<PrepaidExpenses></PrepaidExpenses>
 				<ForeignSalesTaxReceivable></ForeignSalesTaxReceivable>
 				<DeferredIncomeTaxes></DeferredIncomeTaxes>
@@ -51,10 +52,11 @@
 		</OperatingCosts>
 		<OperatingIncome>
 			<OperatingIncome></OperatingIncome>
-			<IntrestIncome></IntrestIncome>
+			<InterestIncome></InterestIncome>
 			<OtherIncome></OtherIncome>
 			<Total></Total>
 		</OperatingIncome>
+        <ProvisionIncomeTaxes>3147</ProvisionIncomeTaxes>
 		<NetIncome></NetIncome>
 	</Operations>
 </Report>
