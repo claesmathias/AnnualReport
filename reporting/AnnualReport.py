@@ -22,8 +22,11 @@ class Operations():
         self.Revenue = ""
         self.CostGoodsSold = ""
         self.NetIncome = ""
+        self.ProvisionIncomeTaxes = ""
         self.OperatingCosts = \
             {'Sales': 0, 'RD': 0, 'General': 0, 'Amortization': 0, 'Total': 0}
+        self.OperatingIncome = \
+            {'OperatingIncome': 0, 'InterestIncome': 0, 'OtherIncome': 0, 'Total': 0}
 
 class AnnualReport():
     def __init__(self):
