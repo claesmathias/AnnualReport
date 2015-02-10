@@ -33,6 +33,7 @@ class XMLParser():
             o = ar.Operations
             o.Revenue = operations.find('Revenue').text
             o.CostGoodsSold = operations.find('CostGoodsSold').text
+            o.ProvisionIncomeTaxes = operations.find('ProvisionIncomeTaxes').text
             o.NetIncome = operations.find('NetIncome').text
 
             # Parse the operating costs
@@ -40,6 +41,12 @@ class XMLParser():
             oc = ar.Operations.OperatingCosts
             # Iterate over keys and set values
             Utilities.set_dictionary_xml(oc, operating_cost)
+
+            # Parse the operating income
+            operating_income = operations.find('OperatingIncome')
+            oi = ar.Operations.OperatingIncome
+            # Iterate over keys and set values
+            Utilities.set_dictionary_xml(oi, operating_income)
 
             #
             # Parse the Consolidated Balance Sheets
