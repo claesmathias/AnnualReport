@@ -11,7 +11,6 @@ __author__ = 'claesmathias'
 
 from pylab import *
 import numpy as np
-import plotly.plotly as py
 
 
 class ProfitabilityIndicators():
