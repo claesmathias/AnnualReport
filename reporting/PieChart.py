@@ -3,7 +3,6 @@ __author__ = 'claesmathias'
 
 from pylab import *
 import numpy as np
-import plotly.plotly as py
 from collections import OrderedDict
 from Utilities import Utilities
 import operator
