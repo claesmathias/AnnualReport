@@ -1,9 +1,20 @@
 __author__ = 'claesmathias'
 
+import matplotlib as mpl
+mpl.use("pgf")
+pgf_with_pdflatex = {
+    "pgf.texsystem": "pdflatex",
+    "pgf.preamble": [
+         r"\usepackage[utf8x]{inputenc}",
+         r"\usepackage[T1]{fontenc}",
+         r"\usepackage{cmbright}",
+         ]
+}
+mpl.rcParams.update(pgf_with_pdflatex)
 
 from pylab import *
 import numpy as np
-import plotly.plotly as py
+import matplotlib.pyplot as plt
 from BarChartSettings import BarChartSettings
 
 
@@ -13,7 +24,7 @@ class OperatingPerformanceBarChart():
         # plot details
         title = 'Operating Performance'
         colors = \
-            {'# Employees': 'green', 'Revenue Per Employee': 'r'}
+            {'Employees': 'green', 'Revenue Per Employee': 'r'}
 
     class Variables:
         def __init__(self):
@@ -66,9 +77,9 @@ class OperatingPerformanceBarChart():
             x + offset,                                     # value
             self.var.employees,                             # np.array
             width,                                          # bar width
-            color=self.Settings.colors['# Employees'],      # color
-            edgecolor=self.Settings.colors['# Employees'],  # edge color
-            label="# Employees")                            # label
+            color=self.Settings.colors['Employees'],      # color
+            edgecolor=self.Settings.colors['Employees'],  # edge color
+            label="Employees")                            # label
 
         y1_min = 0        # 0 million
         y1_max = math.ceil(1.15*max(self.var.employees)/100) * 100;
@@ -138,5 +149,8 @@ class OperatingPerformanceBarChart():
         #plt.show()
 
         # Save figure as *.PNG
-        fig.savefig(self.Settings.title + '.png')
+        fig.savefig(self.Settings.title.replace(" ", "_") + '.png')
+
+        # Save figure as *.PGF
+        fig.savefig(self.Settings.title.replace(" ", "_") + '.pgf')
 
