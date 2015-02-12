@@ -1,9 +1,21 @@
 __author__ = 'claesmathias'
 
 
+import matplotlib as mpl
+mpl.use("pgf")
+pgf_with_pdflatex = {
+    "pgf.texsystem": "pdflatex",
+    "pgf.preamble": [
+         r"\usepackage[utf8x]{inputenc}",
+         r"\usepackage[T1]{fontenc}",
+         r"\usepackage{cmbright}",
+         ]
+}
+mpl.rcParams.update(pgf_with_pdflatex)
+
+
 from pylab import *
 import numpy as np
-import plotly.plotly as py
 from collections import OrderedDict
 from Utilities import Utilities
 
@@ -225,4 +237,7 @@ class OperationsBarChart():
         #plt.show()
 
         # Save figure as *.PNG
-        fig.savefig(self.Settings.title + '.png')
+        fig.savefig(self.Settings.title.replace(" ", "_") + '.png')
+
+        # Save figure as *.PGF
+        fig.savefig(self.Settings.title.replace(" ", "_") + '.pgf')
