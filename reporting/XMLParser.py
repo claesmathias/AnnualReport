@@ -50,12 +50,21 @@ class XMLParser():
 
             #
             # Parse the Consolidated Balance Sheets
+            balance = report.find('Balance')
 
+            # Parse the assets
+            assets = balance.find('Assets')
+            a = ar.Balance.Assets
+            a.Total = assets.find('Total').text
             # Parse the current assets
-            current_assets = report.find('Balance').find('Assets').find('CurrentAssets')
-            ca = ar.Balance.Assets.CurrentAssets
+            current_assets = assets.find('CurrentAssets')
+            ca = a.CurrentAssets
             # Iterate over keys and set values
             Utilities.set_dictionary_xml(ca, current_assets)
+
+            # Parse the liabilities
+            liabilities = balance.find('Liabilities')
+            ar.Balance.Liabilities.StockholderEquity = liabilities.find('StockholderEquity').text
 
 
             # Add the new annual report to the list
