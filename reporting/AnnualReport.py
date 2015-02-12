@@ -7,10 +7,12 @@ class Assets():
             {'Cash': 0, 'AccountsReceivable': 0, 'PrepaidExpenses': 0,
              'ForeignSalesTaxReceivable': 0, 'DeferredIncomeTaxes': 0,
              'Other': 0, 'AssetsDiscontinuedOperations': 0, 'Total': 0}
+        self.Total = ""
 
 class Liabilities():
     def __init__(self):
         self.CurrentLiabilities = ""
+        self.StockholderEquity = ""
 
 class Balance():
     def __init__(self):
