@@ -2,12 +2,20 @@ __author__ = 'claesma1'
 
 
 import os, glob
+from Cheetah.Template import Template
 from XMLParser import XMLParser
 from AnnualReport import AnnualReport
 from OperationsBarChart import OperationsBarChart
 from PieChart import PieChart
 from OperatingPerformanceBarChart import OperatingPerformanceBarChart
 from ProfitabilityIndicators import ProfitabilityIndicators
+
+
+class author:
+    name = "Mathias Claes"
+
+class paper:
+    title = OperationsBarChart.Settings.title
 
 
 def main():
@@ -33,6 +41,11 @@ def main():
 
     # Create
     ProfitabilityIndicators(list).create()
+
+    # Create LaTeX report from template
+    f = open('report.tex', 'w')
+    t = Template(file="report.tmpl", searchList=[{'author': author(), 'paper': paper()}])
+    f.write(str(t))
 
 
 if __name__ == "__main__":
