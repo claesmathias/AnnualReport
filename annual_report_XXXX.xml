@@ -30,6 +30,7 @@
 			<CurrentLiabilities>
 				<AccountsPayable></AccountsPayable>
 				<DeferredRevenue></DeferredRevenue>
+                <AccruedWagesPayrollTaxes></AccruedWagesPayrollTaxes>
 				<IncomeTaxesPayable></IncomeTaxesPayable>
 				<OtherAccruedExpenses></OtherAccruedExpenses>
 				<DeferredCompensation></DeferredCompensation>
