@@ -5,6 +5,7 @@ __author__ = 'claesmathias'
 # Return on assets
 # Return on equity
 # Return on capital employed
+# Working capital ratio
 
 # OTHER: Current Ratio
 # Acid Test ratio
@@ -34,7 +35,8 @@ class ProfitabilityIndicators():
         figure = 'Profitability Indicators'
         title = {'Effective Tax Rate': 'Effective Tax Rate',
                  'Return on Assets': 'Return on Assets',
-                 'Return on Equity': 'Return on Equity'}
+                 'Return on Equity': 'Return on Equity',
+                 'Working Capital Ratio': 'Working Capital Ratio'}
         bar_width = 0.35/2
 
     class Variables:
@@ -45,6 +47,8 @@ class ProfitabilityIndicators():
             self.total_assets = []
             self.operating_income = []
             self.provision_income_taxes = []
+            self.total_current_liabilities = []
+            self.total_current_assets = []
 
     def __init__(self, list):
         self.list = list
@@ -74,10 +78,17 @@ class ProfitabilityIndicators():
             self.var.equity = np.append(
                 self.var.equity,
                 int(item.Balance.Liabilities.StockholderEquity))
+            self.var.total_current_assets = np.append(
+                self.var.total_current_assets,
+                int(item.Balance.Assets.CurrentAssets['Total']))
+            self.var.total_current_liabilities = np.append(
+                self.var.total_current_liabilities,
+                int(item.Balance.Liabilities.CurrentLiabilities['Total']))
 
         effective_tax_rate = self.var.provision_income_taxes / self.var.operating_income
         return_on_assets = self.var.net_income / self.var.total_assets
         return_on_equity = self.var.net_income / self.var.equity
+        working_capital_ratio = self.var.total_current_assets / self.var.total_current_liabilities
 
         x = np.arange(len(self.var.provision_income_taxes))
 
@@ -164,6 +175,20 @@ class ProfitabilityIndicators():
         #
         # Sub plot 2: Scatter plot
         #
+        y_min = math.floor(0.80*min(working_capital_ratio*100))/100
+        y_max = math.ceil(1.10*max(working_capital_ratio)*100)/100
+
+        ax = plt.subplot(2, 1, 2)
+        ax.plot(x + offset, working_capital_ratio, 'bo-')
+        plt.title(self.Settings.title['Working Capital Ratio'])
+        plt.ylabel('Percentage')
+        plt.xticks(x + offset, self.var.t)
+
+        # Set y limits
+        ax.set_ylim([y_min, y_max])
+
+        # Set format for y axis
+        ax.yaxis.set_major_formatter(format_to_percent)
 
         # Show plot
         #plt.show()
