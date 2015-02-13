@@ -64,7 +64,14 @@ class XMLParser():
 
             # Parse the liabilities
             liabilities = balance.find('Liabilities')
-            ar.Balance.Liabilities.StockholderEquity = liabilities.find('StockholderEquity').text
+            l = ar.Balance.Liabilities
+            # Parse the current assets
+            current_liabilities = liabilities.find('CurrentLiabilities')
+            cl = l.CurrentLiabilities
+            # Iterate over keys and set values
+            Utilities.set_dictionary_xml(cl, current_liabilities)
+            # Parse other
+            l.StockholderEquity = liabilities.find('StockholderEquity').text
 
 
             # Add the new annual report to the list
