@@ -17,6 +17,12 @@ class PieChart():
             {'Sales': 'lightcoral', 'RD': 'lightskyblue', 'General': 'orange',
              'Amortization': 'gold'}
 
+    class Slice:
+        def __init__(self, label, color, value):
+            self.label = label
+            self.color = color
+            self.value = value
+
     class Variables:
         def __init__(self):
             self.sales = []
@@ -31,6 +37,12 @@ class PieChart():
     def __init__(self, list):
         self.list = list
         self.var = self.Variables()
+        self.slices = [
+            self.Slice('Sales', self.Settings.colors['Sales'], 0),
+            self.Slice('RD', self.Settings.colors['RD'], 0),
+            self.Slice('General', self.Settings.colors['General'], 0),
+            self.Slice('Amortization', self.Settings.colors['Amortization'], 0),
+        ]
 
 
     def create(self):
@@ -42,36 +54,32 @@ class PieChart():
             # Add operating cost, total inclusive
             Utilities.set_dictionary(self.var.operating_cost, item.Operations.OperatingCosts)
 
-
-        figure()
-
-        # The slices will be ordered and plotted counter-clockwise.
-        slices = {'Sales': 0, 'RD': 0, 'General': 0, 'Amortization': 0}
-
         # last element represents last year (ordered list)
         last_year_total_operating_cost = (self.var.operating_cost['Total'])[-1]
 
         # calculate all slices
-        for key in slices.keys():
+        for slice in self.slices:
             # last element represents last year (ordered list)
-            last_year_operating_cost = (self.var.operating_cost[key])[-1]
-            slices[key] = last_year_operating_cost / last_year_total_operating_cost
+            last_year_operating_cost = (self.var.operating_cost[slice.label])[-1]
+            slice.value = last_year_operating_cost / last_year_total_operating_cost
 
         # Sort the list by value
-        #slices = sorted(slices.items(), key=operator.itemgetter(1))
+        slices = sorted(self.slices, key=lambda slice: slice.value, reverse=True)
 
         # only "explode" the 2nd slice
         explode = (0, 0.1, 0, 0)
 
+        # Create new figure
         fig = plt.figure(figsize=[10, 10])
         ax = fig.add_subplot(111)
 
+        # The slices will be ordered and plotted counter-clockwise.
         # Make a pie chart
         pie_wedge_collection = ax.pie(
-            [float(v) for v in slices.values()],         # [expression for target in iterable]
+            [float(s.value) for s in slices],         # [expression for target in iterable]
             explode=explode,
-            colors=[str(v) for v in self.Settings.colors.values()],
-            labels=list(slices),
+            colors=[s.color for s in slices],
+            labels=[s.label for s in slices],
             labeldistance=1.05,
             autopct='%1.1f%%',
             shadow=True,
@@ -80,6 +88,11 @@ class PieChart():
         for pie_wedge in pie_wedge_collection[0]:
             pie_wedge.set_edgecolor('white')
 
+        # Set plot title
         plt.title(self.Settings.title)
 
-        plt.savefig(self.Settings.title + '.png')
+        # Save figure as *.PNG
+        fig.savefig(self.Settings.title.replace(" ", "_") + '.png')
+
+        # Save figure as *.PGF
+        fig.savefig(self.Settings.title.replace(" ", "_") + '.pgf')
