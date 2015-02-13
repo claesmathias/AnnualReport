@@ -54,24 +54,6 @@ class OperationsBarChart():
         self.list = list
         self.var = self.Variables()
 
-
-    @staticmethod
-    def to_millions(x, pos):
-        'The two args are the value and tick position'
-        return '$%1.1fM' % (x*1e-3)
-
-    @staticmethod
-    def to_percent(y, position):
-        # Ignore the passed in position. This has the effect of scaling the default
-        # tick locations.
-        s = str(100 * y)
-
-        # The percent symbol needs escaping in latex
-        if matplotlib.rcParams['text.usetex'] == True:
-            return s + r'$\%$'
-        else:
-            return s + '%'
-
     def create(self):
         # Sort the list by year
         self.list = sorted(self.list, key=lambda item: item.Info['Year'])
@@ -97,7 +79,7 @@ class OperationsBarChart():
             Utilities.set_dictionary(self.var.operating_cost, item.Operations.OperatingCosts)
 
         # Create label formatter
-        format_to_millions = FuncFormatter(self.to_millions)
+        format_to_millions = FuncFormatter(Utilities.to_millions)
 
         #
         # Create plots
@@ -217,7 +199,7 @@ class OperationsBarChart():
 
         # Create the formatter using the function to_percent. This multiplies all the
         # default labels by 100, making them all percentages
-        format_to_percent = FuncFormatter(self.to_percent)
+        format_to_percent = FuncFormatter(Utilities.to_percent)
 
         # Set format for y1 and y2
         ax2.yaxis.set_major_formatter(format_to_percent)

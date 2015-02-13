@@ -15,6 +15,7 @@ mpl.rcParams.update(pgf_with_pdflatex)
 from pylab import *
 import numpy as np
 import matplotlib.pyplot as plt
+from Utilities import Utilities
 from BarChartSettings import BarChartSettings
 
 
@@ -36,11 +37,6 @@ class OperatingPerformanceBarChart():
         self.list = list
         self.var = self.Variables()
 
-    @staticmethod
-    def to_thousand(x, pos):
-        'The two args are the value and tick position'
-        return '$%1.1fk' % (x)
-
     def create(self):
 
         # Sort the list by year
@@ -58,7 +54,7 @@ class OperatingPerformanceBarChart():
                 int(item.Operations.Revenue))
 
         # Create label formatter
-        format_to_thousand = FuncFormatter(self.to_thousand)
+        format_to_thousand = FuncFormatter(Utilities.to_thousand)
 
         #
         # Create plots

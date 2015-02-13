@@ -24,6 +24,7 @@ mpl.rcParams.update(pgf_with_pdflatex)
 
 from pylab import *
 import numpy as np
+from Utilities import Utilities
 
 
 class ProfitabilityIndicators():
@@ -48,18 +49,6 @@ class ProfitabilityIndicators():
     def __init__(self, list):
         self.list = list
         self.var = self.Variables()
-
-    @staticmethod
-    def to_percent(y, position):
-        # Ignore the passed in position. This has the effect of scaling the default
-        # tick locations.
-        s = str(100 * y)
-
-        # The percent symbol needs escaping in latex
-        if matplotlib.rcParams['text.usetex'] == True:
-            return s + r'$\%$'
-        else:
-            return s + '%'
 
     def create(self):
 
@@ -98,7 +87,7 @@ class ProfitabilityIndicators():
 
         # Create the formatter using the function to_percent. This multiplies all the
         # default labels by 100, making them all percentages
-        format_to_percent = FuncFormatter(self.to_percent)
+        format_to_percent = FuncFormatter(Utilities.to_percent)
 
         # Create figure
         fig1 = plt.figure(1)
