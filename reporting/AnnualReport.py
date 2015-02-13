@@ -11,7 +11,10 @@ class Assets():
 
 class Liabilities():
     def __init__(self):
-        self.CurrentLiabilities = ""
+        self.CurrentLiabilities = \
+            {'AccountsPayable': 0, 'DeferredRevenue': 0, 'AccruedWagesPayrollTaxes': 0,
+             'IncomeTaxesPayable': 0,'OtherAccruedExpenses': 0, 'DeferredCompensation': 0,
+             'LiabilitiesDiscontinuedOperations': 0, 'Total': 0}
         self.StockholderEquity = ""
 
 class Balance():
