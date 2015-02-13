@@ -36,7 +36,7 @@ class ProfitabilityIndicators():
         title = {'Effective Tax Rate': 'Effective Tax Rate',
                  'Return on Assets': 'Return on Assets',
                  'Return on Equity': 'Return on Equity',
-                 'Working Capital Ratio': 'Working Capital Ratio'}
+                 'Current Ratio': 'Current Ratio'}
         bar_width = 0.35/2
 
     class Variables:
@@ -86,9 +86,14 @@ class ProfitabilityIndicators():
                 int(item.Balance.Liabilities.CurrentLiabilities['Total']))
 
         effective_tax_rate = self.var.provision_income_taxes / self.var.operating_income
-        return_on_assets = self.var.net_income / self.var.total_assets
-        return_on_equity = self.var.net_income / self.var.equity
-        working_capital_ratio = self.var.total_current_assets / self.var.total_current_liabilities
+        return_on_assets = ndarray((5,), float)
+        return_on_equity = ndarray((5,), float)
+
+        for i in range(1, len(self.var.net_income)):
+            return_on_assets[i-1] = (2 * self.var.net_income[i]) / (self.var.total_assets[i-1] + self.var.total_assets[i])
+            return_on_equity[i-1] = (2 * self.var.net_income[i]) / (self.var.equity[i-1] + self.var.equity[i])
+
+        current_ratio = self.var.total_current_assets / self.var.total_current_liabilities
 
         x = np.arange(len(self.var.provision_income_taxes))
 
@@ -129,10 +134,10 @@ class ProfitabilityIndicators():
         y_max = math.ceil(1.10*max(return_on_assets)*100)/100
 
         ax = plt.subplot(2, 1, 2)
-        ax.plot(x + offset, return_on_assets, 'bo-')
+        ax.plot(x[1:] + offset, return_on_assets, 'bo-')
         plt.title(self.Settings.title['Return on Assets'])
         plt.ylabel('Percentage')
-        plt.xticks(x + offset, self.var.t)
+        plt.xticks(x[1:] + offset, self.var.t[1:])
 
         # Set y limits
         ax.set_ylim([y_min, y_max])
@@ -161,10 +166,10 @@ class ProfitabilityIndicators():
         y_max = math.ceil(1.10*max(return_on_equity)*100)/100
 
         ax = plt.subplot(2, 1, 1)
-        ax.plot(x + offset, return_on_equity, 'bo-')
+        ax.plot(x[1:] + offset, return_on_equity, 'bo-')
         plt.title(self.Settings.title['Return on Equity'])
         plt.ylabel('Percentage')
-        plt.xticks(x + offset, self.var.t)
+        plt.xticks(x[1:] + offset, self.var.t[1:])
 
         # Set y limits
         ax.set_ylim([y_min, y_max])
@@ -175,12 +180,12 @@ class ProfitabilityIndicators():
         #
         # Sub plot 2: Scatter plot
         #
-        y_min = math.floor(0.80*min(working_capital_ratio*100))/100
-        y_max = math.ceil(1.10*max(working_capital_ratio)*100)/100
+        y_min = math.floor(0.80*min(current_ratio*100))/100
+        y_max = math.ceil(1.10*max(current_ratio)*100)/100
 
         ax = plt.subplot(2, 1, 2)
-        ax.plot(x + offset, working_capital_ratio, 'bo-')
-        plt.title(self.Settings.title['Working Capital Ratio'])
+        ax.plot(x + offset, current_ratio, 'bo-')
+        plt.title(self.Settings.title['Current Ratio'])
         plt.ylabel('Percentage')
         plt.xticks(x + offset, self.var.t)
 
