@@ -34,9 +34,10 @@ class ProfitabilityIndicators():
         # plot details
         figure = 'Profitability Indicators'
         title = {'Effective Tax Rate': 'Effective Tax Rate',
-                 'Return on Assets': 'Return on Assets',
-                 'Return on Equity': 'Return on Equity',
-                 'Current Ratio': 'Current Ratio'}
+                 'Return on ...': 'Return on ...',
+                 "Ratio's": "Ratio's"}
+        labels = {'ROA': 'ROA', 'ROE': 'ROE',
+                  'Current Ratio': 'Current Ratio', 'Quick Ratio': 'Quick Ratio'}
         bar_width = 0.35/2
 
     class Variables:
@@ -49,6 +50,7 @@ class ProfitabilityIndicators():
             self.provision_income_taxes = []
             self.total_current_liabilities = []
             self.total_current_assets = []
+            self.inventories = []
 
     def __init__(self, list):
         self.list = list
@@ -84,6 +86,9 @@ class ProfitabilityIndicators():
             self.var.total_current_liabilities = np.append(
                 self.var.total_current_liabilities,
                 int(item.Balance.Liabilities.CurrentLiabilities['Total']))
+            self.var.inventories = np.append(
+                self.var.inventories,
+                int(item.Balance.Assets.CurrentAssets['Inventories']))
 
         effective_tax_rate = self.var.provision_income_taxes / self.var.operating_income
         return_on_assets = ndarray((5,), float)
@@ -94,8 +99,11 @@ class ProfitabilityIndicators():
             return_on_equity[i-1] = (2 * self.var.net_income[i]) / (self.var.equity[i-1] + self.var.equity[i])
 
         current_ratio = self.var.total_current_assets / self.var.total_current_liabilities
+        quick_ratio = (self.var.total_current_assets - self.var.inventories) / self.var.total_current_liabilities
 
         x = np.arange(len(self.var.provision_income_taxes))
+
+        minor_locator = MultipleLocator(0.01)
 
         # Bar width
         width = self.Settings.bar_width
@@ -112,8 +120,8 @@ class ProfitabilityIndicators():
         #
         # Sub plot 1: Scatter plot
         #
-        y_min = math.floor(0.80*min(effective_tax_rate*100))/100
-        y_max = math.ceil(1.10*max(effective_tax_rate)*100)/100
+        y_min = math.floor(0.80*min(effective_tax_rate*20))/20
+        y_max = math.ceil(1.10*max(effective_tax_rate)*20)/20
 
         ax = plt.subplot(2, 1, 1)
         ax.plot(x + offset, effective_tax_rate, 'bo-')
@@ -126,16 +134,19 @@ class ProfitabilityIndicators():
 
         # Set format for y axis
         ax.yaxis.set_major_formatter(format_to_percent)
+        ax.yaxis.set_minor_locator(minor_locator)
 
         #
         # Sub plot 2: Scatter plot
         #
-        y_min = math.floor(0.80*min(return_on_assets*100))/100
-        y_max = math.ceil(1.10*max(return_on_assets)*100)/100
+        y_min = math.floor(0.80*min(min(return_on_assets), min(return_on_equity))*20)/20
+        y_max = math.ceil(1.10*max(max(return_on_assets), max(return_on_equity))*20)/20
+
 
         ax = plt.subplot(2, 1, 2)
-        ax.plot(x[1:] + offset, return_on_assets, 'bo-')
-        plt.title(self.Settings.title['Return on Assets'])
+        ax.plot(x[1:] + offset, return_on_assets, 'bo-', label=self.Settings.labels["ROA"])
+        ax.plot(x[1:] + offset, return_on_equity, 'ro-', label=self.Settings.labels["ROE"])
+        plt.title(self.Settings.title['Return on ...'])
         plt.ylabel('Percentage')
         plt.xticks(x[1:] + offset, self.var.t[1:])
 
@@ -144,6 +155,11 @@ class ProfitabilityIndicators():
 
         # Set format for y axis
         ax.yaxis.set_major_formatter(format_to_percent)
+        ax.yaxis.set_minor_locator(minor_locator)
+
+        # Set legend position
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.00),
+          ncol=3, fancybox=True, shadow=True)
 
         # Show plot
         #plt.show()
@@ -159,6 +175,7 @@ class ProfitabilityIndicators():
         fig2 = plt.figure(2)
         fig2.set_canvas(plt.gcf().canvas)
 
+        """
         #
         # Sub plot 1: Scatter plot
         #
@@ -176,16 +193,18 @@ class ProfitabilityIndicators():
 
         # Set format for y axis
         ax.yaxis.set_major_formatter(format_to_percent)
+        """
 
         #
         # Sub plot 2: Scatter plot
         #
-        y_min = math.floor(0.80*min(current_ratio*100))/100
-        y_max = math.ceil(1.10*max(current_ratio)*100)/100
+        y_min = math.floor(0.80*min(min(current_ratio), min(quick_ratio))*20)/20
+        y_max = math.ceil(1.10*max(max(current_ratio), max(quick_ratio))*20)/20
 
         ax = plt.subplot(2, 1, 2)
-        ax.plot(x + offset, current_ratio, 'bo-')
-        plt.title(self.Settings.title['Current Ratio'])
+        ax.plot(x + offset, current_ratio, 'bo-', label=self.Settings.labels["Current Ratio"])
+        ax.plot(x + offset, quick_ratio, 'ro-', label=self.Settings.labels["Quick Ratio"])
+        plt.title(self.Settings.title["Ratio's"])
         plt.ylabel('Percentage')
         plt.xticks(x + offset, self.var.t)
 
@@ -194,6 +213,11 @@ class ProfitabilityIndicators():
 
         # Set format for y axis
         ax.yaxis.set_major_formatter(format_to_percent)
+        ax.yaxis.set_minor_locator(minor_locator)
+
+        # Set legend position
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.00),
+          ncol=3, fancybox=True, shadow=True)
 
         # Show plot
         #plt.show()
