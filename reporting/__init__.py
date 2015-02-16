@@ -25,22 +25,28 @@ def main():
     # Find all the annual reports in the current directory
     for file in glob.glob("annual_report_*.xml"):
         # Parse the first file found
-        XMLParser(file).parse(list, None)
+        XMLParser(file).parse(list)
+
+    annual_reports = [item for item in list if isinstance(item, AnnualReport)]
+    quarterly_earnings = [item for item in list if isinstance(item, QuarterlyEarnings) and int(item.Info['Year']) >= 2013]
 
     # Sort the list by year
     # list = sorted(list, key=lambda item: item.Info['Year'])
 
     # Create new bar chart
-    OperationsBarChart(list).create()
+    OperationsBarChart(annual_reports).create()
+    obj = OperationsBarChart(quarterly_earnings)
+    obj.Settings.title += " Quarterly Earnings"
+    obj.create()
 
     # Create new pie char
-    PieChart(list).create()
+    PieChart(annual_reports).create()
 
     # Create new horizontal bar char
-    OperatingPerformanceBarChart(list).create()
+    OperatingPerformanceBarChart(annual_reports).create()
 
     # Create
-    ProfitabilityIndicators(list).create()
+    ProfitabilityIndicators(annual_reports).create()
 
     # Create LaTeX report from template
     f = open('report.tex', 'w')
