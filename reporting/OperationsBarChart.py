@@ -66,8 +66,16 @@ class OperationsBarChart():
 
         # Iterate over the list
         for item in self.list:
-            self.var.t.append(
-                item.Info['Year'])
+            if isinstance(self.list[0], AnnualReport):
+                self.var.t.append(
+                    item.Info['Year'])
+            elif isinstance(self.list[0], QuarterlyEarnings):
+                if item.Info['Quarter'] == "Q1":
+                    self.var.t.append(
+                        item.Info['Quarter'] + " " + item.Info['Year'])
+                else:
+                    self.var.t.append(
+                        item.Info['Quarter'])
             self.var.revenue = np.append(
                 self.var.revenue,
                 int(item.Operations.Revenue))
@@ -148,7 +156,7 @@ class OperationsBarChart():
 
         hunderd_million = 100000
         y1_min = 0        # 0 million
-        y1_max = math.ceil(1.15*max(self.var.revenue)/hunderd_million) * hunderd_million;
+        y1_max = math.ceil(1.1*max(self.var.revenue)/hunderd_million) * hunderd_million
         y1_ticks = 10     # number of ticks
 
         # Set y1 limits and ticks
