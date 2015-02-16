@@ -7,7 +7,7 @@ class Assets():
             {'Cash': 0, 'AccountsReceivable': 0, 'Inventories': 0, 'PrepaidExpenses': 0,
              'ForeignSalesTaxReceivable': 0, 'DeferredIncomeTaxes': 0,
              'Other': 0, 'AssetsDiscontinuedOperations': 0, 'Total': 0}
-        self.Total = ""
+        self.Total = 0
 
 class Liabilities():
     def __init__(self):
@@ -15,7 +15,7 @@ class Liabilities():
             {'AccountsPayable': 0, 'DeferredRevenue': 0, 'AccruedWagesPayrollTaxes': 0,
              'IncomeTaxesPayable': 0,'OtherAccruedExpenses': 0, 'DeferredCompensation': 0,
              'LiabilitiesDiscontinuedOperations': 0, 'Total': 0}
-        self.StockholderEquity = ""
+        self.StockholderEquity = 0
 
 class Balance():
     def __init__(self):
@@ -24,10 +24,10 @@ class Balance():
 
 class Operations():
     def __init__(self):
-        self.Revenue = ""
-        self.CostGoodsSold = ""
-        self.NetIncome = ""
-        self.ProvisionIncomeTaxes = ""
+        self.Revenue = 0
+        self.CostGoodsSold = 0
+        self.NetIncome = 0
+        self.ProvisionIncomeTaxes = 0
         self.OperatingCosts = \
             {'Sales': 0, 'RD': 0, 'General': 0, 'Amortization': 0, 'Total': 0}
         self.OperatingIncome = \
