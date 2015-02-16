@@ -4,7 +4,7 @@ __author__ = 'claesma1'
 import os, glob
 from Cheetah.Template import Template
 from XMLParser import XMLParser
-from AnnualReport import AnnualReport
+from Reporting import *
 from OperationsBarChart import OperationsBarChart
 from PieChart import PieChart
 from OperatingPerformanceBarChart import OperatingPerformanceBarChart
@@ -25,7 +25,7 @@ def main():
     # Find all the annual reports in the current directory
     for file in glob.glob("annual_report_*.xml"):
         # Parse the first file found
-        XMLParser(file).parse(list)
+        XMLParser(file).parse(list, None)
 
     # Sort the list by year
     # list = sorted(list, key=lambda item: item.Info['Year'])

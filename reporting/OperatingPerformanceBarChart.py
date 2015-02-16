@@ -73,9 +73,9 @@ class OperatingPerformanceBarChart():
             x + offset,                                     # value
             self.var.employees,                             # np.array
             width,                                          # bar width
-            color=self.Settings.colors['Employees'],      # color
-            edgecolor=self.Settings.colors['Employees'],  # edge color
-            label="Employees")                            # label
+            color=self.Settings.colors['Employees'],        # color
+            edgecolor=self.Settings.colors['Employees'],    # edge color
+            label="Employees")                              # label
 
         y1_min = 0        # 0 million
         y1_max = math.ceil(1.15*max(self.var.employees)/100) * 100;

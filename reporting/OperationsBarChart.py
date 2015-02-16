@@ -18,6 +18,7 @@ from pylab import *
 import numpy as np
 from collections import OrderedDict
 from Utilities import Utilities
+from Reporting import *
 
 
 class OperationsBarChart():
@@ -55,8 +56,13 @@ class OperationsBarChart():
         self.var = self.Variables()
 
     def create(self):
-        # Sort the list by year
-        self.list = sorted(self.list, key=lambda item: item.Info['Year'])
+
+        if isinstance(self.list[0], AnnualReport):
+            # Sort the list by year
+            self.list = sorted(self.list, key=lambda item: item.Info['Year'])
+        elif isinstance(self.list[0], QuarterlyEarnings):
+            # Sort the list by year
+            self.list = sorted(self.list, key=lambda item: (item.Info['Year'], item.Info['Quarter']))
 
         # Iterate over the list
         for item in self.list:
