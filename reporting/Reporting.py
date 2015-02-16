@@ -4,7 +4,7 @@ __author__ = 'claesmathias'
 class Assets():
     def __init__(self):
         self.CurrentAssets = \
-            {'Cash': 0, 'AccountsReceivable': 0, 'PrepaidExpenses': 0,
+            {'Cash': 0, 'AccountsReceivable': 0, 'Inventories': 0, 'PrepaidExpenses': 0,
              'ForeignSalesTaxReceivable': 0, 'DeferredIncomeTaxes': 0,
              'Other': 0, 'AssetsDiscontinuedOperations': 0, 'Total': 0}
         self.Total = ""
@@ -35,7 +35,12 @@ class Operations():
 
 class AnnualReport():
     def __init__(self):
-        self.Info = {'Year': 0, 'Employees': 0, }
+        self.Info = {'Type': "", 'Year': 0, 'Employees': 0, 'Company': ""}
         self.Balance = Balance()
         self.Operations = Operations()
 
+class QuarterlyEarnings():
+    def __init__(self):
+        self.Info = {'Type': "", 'Quarter': "", 'Year': 0, 'Company': ""}
+        self.Balance = Balance()
+        self.Operations = Operations()
