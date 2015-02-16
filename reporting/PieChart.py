@@ -2,10 +2,7 @@ __author__ = 'claesmathias'
 
 
 from pylab import *
-import numpy as np
-from collections import OrderedDict
 from Utilities import Utilities
-import operator
 
 
 class PieChart():
