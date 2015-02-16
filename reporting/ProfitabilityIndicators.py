@@ -136,7 +136,7 @@ class ProfitabilityIndicators():
         # Sub plot 1: Scatter plot
         #
         y_min = math.floor(0.80*min(effective_tax_rate*20))/20
-        y_max = math.ceil(1.10*max(effective_tax_rate)*20)/20
+        y_max = math.ceil(1.20*max(effective_tax_rate)*20)/20
 
         ax = plt.subplot(2, 1, 1)
         ax.plot(x + offset, effective_tax_rate, 'bo-')
@@ -159,15 +159,15 @@ class ProfitabilityIndicators():
         y_min = sign * math.floor(0.80*abs(min(temp))*20)/20
         temp = [max(return_on_assets), max(return_on_equity)]
         sign = -1 if temp < 0 else 1
-        y_max = sign * math.ceil(1.10*abs(max(temp))*20)/20
+        y_max = sign * math.ceil(1.20*abs(max(temp))*20)/20
 
 
         ax = plt.subplot(2, 1, 2)
-        ax.plot(x[1:] + offset, return_on_assets, 'bo-', label=self.Settings.labels["ROA"])
-        ax.plot(x[1:] + offset, return_on_equity, 'ro-', label=self.Settings.labels["ROE"])
+        ax.plot(x[1:] + offset/2, return_on_assets, 'bo-', label=self.Settings.labels["ROA"])
+        ax.plot(x[1:] + offset/2, return_on_equity, 'ro-', label=self.Settings.labels["ROE"])
         plt.title(self.Settings.title['Return on ...'])
         plt.ylabel('Percentage')
-        plt.xticks(x[1:] + offset, self.var.t[1:])
+        plt.xticks(x[1:] + offset/2, self.var.t[1:])
 
         # Set y limits
         ax.set_ylim([y_min, y_max])
@@ -203,13 +203,13 @@ class ProfitabilityIndicators():
         y_min = sign * math.floor(0.80*abs(min(temp))*20)/20
         temp = [max(return_on_capital)]
         sign = -1 if temp < 0 else 1
-        y_max = sign * math.ceil(1.10*abs(max(temp))*20)/20
+        y_max = sign * math.ceil(1.20*abs(max(temp))*20)/20
 
         ax = plt.subplot(2, 1, 1)
-        ax.plot(x[1:] + offset, return_on_capital, 'go-', label=self.Settings.labels["ROC"])
+        ax.plot(x[1:] + offset/2, return_on_capital, 'go-', label=self.Settings.labels["ROC"])
         plt.title(self.Settings.labels["ROC"])
         plt.ylabel('Percentage')
-        plt.xticks(x[1:] + offset, self.var.t[1:])
+        plt.xticks(x[1:] + offset/2, self.var.t[1:])
 
         # Set y limits
         ax.set_ylim([y_min, y_max])
@@ -222,17 +222,17 @@ class ProfitabilityIndicators():
         #
         # Sub plot 2: Scatter plot
         #
-        y_min = math.floor(0.80*min(min(current_ratio), min(quick_ratio), 1.0)*20)/20
-        y_max = math.ceil(1.10*max(max(current_ratio), max(quick_ratio), 1.0)*20)/20
+        y_min = math.floor(0.80*min(min(current_ratio), min(quick_ratio), 1.0))
+        y_max = math.ceil(1.20*max(max(current_ratio), max(quick_ratio), 1.0))
 
         minor_locator = MultipleLocator(0.1)
 
         ax = plt.subplot(2, 1, 2)
         ax.plot(x + offset, current_ratio, 'bo-', label=self.Settings.labels["Current Ratio"])
         ax.plot(x + offset, quick_ratio, 'ro-', label=self.Settings.labels["Quick Ratio"])
-        ax.plot((min(x) - 2*offset, max(x) + 2*offset), (1.5, 1.5), 'g-')
+        ax.plot((min(x) + offset, max(x) + offset), (1.5, 1.5), 'g-')
         plt.title(self.Settings.title["Ratio's"])
-        plt.ylabel('Percentage')
+        plt.ylabel('Times')
         plt.xticks(x + offset, self.var.t)
 
         # Set y limits
