@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{pgf}
+\usepackage{amsmath}
 
 \title{$paper.title}
 \author{$author.name}
@@ -11,5 +12,27 @@
 \scalebox{0.6}{\input{Statements_of_Operations_Data.pgf}}
 
 \scalebox{0.6}{\input{Operating_Performance.pgf}}
+
+
+\begin{equation} \label{eq:eq_roa}
+\begin{split}
+	ROA &= \frac{Net Income}{Average Total Assets} \\
+		&= \frac{Net Income_{t}}{Total Assets_{t} + Total Assets_{t-1}}
+\end{split}
+\end{equation}
+
+\begin{equation} \label{eq:eq_roe}
+\begin{split}
+	ROE &= \frac{Net Income}{Average Total Equity} \\
+		&= \frac{Net Income_{t}}{Total Equity_{t} + Total Equity_{t-1}}
+\end{split}
+\end{equation}
+
+\begin{equation} \label{eq:eq_roc}
+\begin{split}
+	ROE &= \frac{Net Income}{Average Invested Capital} \\
+		&= \frac{Net Income_{t}}{Invested Capital_{t} + Invested Capital_{t-1}}
+\end{split}
+\end{equation}
 
 \end{document}
