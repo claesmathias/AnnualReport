@@ -9,7 +9,7 @@ class XMLParser():
     def __init__(self, file):
         self.file = file
 
-    def parse(self, list, function_filter):
+    def parse(self, list):
         # Parse the given file
         tree = ET.parse(self.file)
 
@@ -85,5 +85,5 @@ class XMLParser():
             # Add the new annual report to the list
             list.append(r)
 
-            # Filter the list
-            list = filter(function_filter, list)
+        # Sort the list by year
+        list = sorted(list, key=lambda item: item.Info['Year'])
