@@ -1,11 +1,39 @@
 <?xml version="1.0"?>
-<Collection title="Annual Reports">
+<Collection title="Financial Information">
+<Report title="Quarterly Earnings">
+	<Info>
+		<Type>10-Q</Type>
+		<Year></Year>
+		<Quarter></Quarter>
+		<Company></Company>
+	</Info>
+	<Operations title="Consolidated Statements of Operations Data">
+		<Revenue></Revenue>
+		<CostGoodsSold></CostGoodsSold>
+		<GrossProfit></GrossProfit>
+		<OperatingCosts>
+			<Sales></Sales>
+			<RD></RD>
+			<General></General>
+			<Amortization></Amortization>
+			<Total></Total>
+		</OperatingCosts>
+		<OperatingIncome>
+			<OperatingIncome></OperatingIncome>
+			<InterestIncome></InterestIncome>
+			<OtherIncome></OtherIncome>
+			<Total></Total>
+		</OperatingIncome>
+        <ProvisionIncomeTaxes></ProvisionIncomeTaxes>
+		<NetIncome></NetIncome>
+	</Operations>
+</Report>
 <Report title="Annual Report">
 	<Info>
+		<Type>10-K</Type>
 		<Company></Company>
 		<Year></Year>
 		<Employees></Employees>
-		<WorkingCapital></WorkingCapital>
 	</Info>
 	<Balance title="Consolidated Balance Sheets">
 		<Assets>
@@ -57,7 +85,7 @@
 			<OtherIncome></OtherIncome>
 			<Total></Total>
 		</OperatingIncome>
-        <ProvisionIncomeTaxes>3147</ProvisionIncomeTaxes>
+        <ProvisionIncomeTaxes></ProvisionIncomeTaxes>
 		<NetIncome></NetIncome>
 	</Operations>
 </Report>
